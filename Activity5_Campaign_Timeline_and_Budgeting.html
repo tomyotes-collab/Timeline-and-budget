@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pre-class · Campaign Timeline &amp; Budgeting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#221A2E; --ink-soft:#5A5168; --ink-faint:#8B8398;
+  --surface:#FBFAFF; --card:#FFFFFF;
+  --violet:#6C3FE0; --violet-deep:#4B27A6; --violet-tint:#F1ECFE;
+  --teal:#08B89D; --teal-tint:#E2F7F3;
+  --coral:#FF6A5A; --coral-tint:#FFEDEA;
+  --amber:#E8920C; --amber-tint:#FCF0DC;
+  --red:#E5484D;
+  --line:#ECE7F4; --shadow:0 6px 24px rgba(54,30,110,.08); --shadow-lg:0 14px 40px rgba(54,30,110,.14);
+  --r:18px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0; background:var(--surface); color:var(--ink);
+  font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,sans-serif; line-height:1.62; -webkit-font-smoothing:antialiased;}
+.wrap{max-width:880px; margin:0 auto; padding:0 22px 90px;}
+h1,h2,h3,.disp{font-family:"Space Grotesk","Inter",sans-serif; letter-spacing:-.01em;}
+a{color:var(--violet-deep);}
+.eyebrow{font-family:"Space Grotesk",sans-serif; text-transform:uppercase; letter-spacing:.18em; font-size:.72rem; font-weight:600; color:var(--violet);}
+
+.hero{background:linear-gradient(150deg,#2B1B57 0%,#6C3FE0 45%,#E8920C 130%); color:#fff; border-radius:0 0 30px 30px; padding:40px 22px 46px; position:relative; overflow:hidden;}
+.hero .inner{max-width:880px; margin:0 auto; position:relative; z-index:2;}
+.hero .eyebrow{color:#FBE2BC;}
+.hero h1{font-size:2.25rem; line-height:1.12; margin:.5rem 0 .6rem; font-weight:700;}
+.hero p.lead{color:#EFE6F7; font-size:1.05rem; max-width:60ch; margin:0;}
+.badges{display:flex; flex-wrap:wrap; gap:8px; margin-top:18px;}
+.badge{background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.22); color:#fff; padding:6px 13px; border-radius:999px; font-size:.8rem; font-weight:500; backdrop-filter:blur(4px);}
+.phone-glow{position:absolute; right:-70px; top:-60px; width:260px; height:260px; border-radius:50%; background:radial-gradient(circle,rgba(255,176,32,.5),transparent 65%); filter:blur(8px); z-index:1;}
+.phone-glow.two{right:120px; top:150px; width:180px; height:180px; background:radial-gradient(circle,rgba(108,63,224,.4),transparent 65%);}
+
+.outcomes{background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.20); border-radius:16px; padding:16px 18px; margin-top:22px;}
+.outcomes b{display:block; font-family:"Space Grotesk",sans-serif; font-size:.8rem; letter-spacing:.06em; text-transform:uppercase; color:#FBE2BC; margin-bottom:8px;}
+.outcomes ul{margin:0; padding-left:18px; color:#F4ECFA; font-size:.94rem;}
+.outcomes li{margin:3px 0;}
+
+section{margin-top:46px;}
+.sec-head{display:flex; align-items:center; gap:12px; margin-bottom:6px;}
+.sec-num{font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:.95rem; color:#fff; background:var(--violet); width:34px; height:34px; border-radius:11px; display:grid; place-items:center; flex:0 0 auto;}
+h2{font-size:1.5rem; margin:.1rem 0;}
+.sec-intro{color:var(--ink-soft); font-size:1.02rem; margin:.3rem 0 0;}
+.card{background:var(--card); border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--shadow); padding:22px 24px;}
+.note{background:var(--violet-tint); border:1px solid #E4D8FB; border-radius:14px; padding:14px 16px; font-size:.95rem; color:#3C2C66;}
+.note .lbl{font-family:"Space Grotesk",sans-serif; font-weight:600; text-transform:uppercase; letter-spacing:.1em; font-size:.7rem; color:var(--violet); display:block; margin-bottom:4px;}
+
+/* phase cards */
+.phases{display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-top:18px;}
+.pcard{border-radius:var(--r); padding:18px; color:#fff; box-shadow:var(--shadow); position:relative;}
+.pcard .ph{font-family:"Space Grotesk",sans-serif; font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; opacity:.85;}
+.pcard h3{margin:2px 0 4px; font-size:1.12rem;}
+.pcard .meta{font-size:.78rem; opacity:.92; font-family:"Space Grotesk",sans-serif; margin-bottom:8px;}
+.pcard p{margin:0 0 8px; font-size:.85rem;}
+.pcard ul{margin:0; padding-left:16px; font-size:.81rem;}
+.pcard li{margin:3px 0;}
+.pcard .pct{position:absolute; top:14px; right:14px; background:rgba(255,255,255,.2); border-radius:999px; padding:3px 9px; font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:.78rem;}
+.pre{background:linear-gradient(160deg,#7B4EE6,#4B27A6);}
+.launch{background:linear-gradient(160deg,#EE6A4E,#C5402C);}
+.post{background:linear-gradient(160deg,#0BAB91,#08866f);}
+
+/* timeline table */
+.jtable{margin-top:16px; border:1px solid var(--line); border-radius:var(--r); overflow:hidden; box-shadow:var(--shadow);}
+.jrow{display:grid; grid-template-columns:120px 90px 1fr; border-bottom:1px solid var(--line);}
+.jrow:last-child{border-bottom:none;}
+.jrow.head{background:var(--violet); color:#fff; font-family:"Space Grotesk",sans-serif; font-size:.78rem; letter-spacing:.04em; text-transform:uppercase;}
+.jrow.head>div{padding:10px 14px;}
+.jrow .stage{background:var(--violet-tint); padding:13px 14px; font-family:"Space Grotesk",sans-serif; font-weight:600; color:var(--violet-deep); font-size:.88rem;}
+.jrow .wk{padding:13px 14px; font-family:"Space Grotesk",sans-serif; font-weight:600; color:var(--amber); font-size:.86rem;}
+.jrow .act{padding:13px 14px; font-size:.85rem; color:var(--ink-soft);}
+
+/* budget bar */
+.budget-bar{display:flex; height:46px; border-radius:12px; overflow:hidden; margin-top:18px; box-shadow:var(--shadow); font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:.82rem; color:#fff;}
+.budget-bar div{display:grid; place-items:center; text-align:center; padding:0 4px;}
+.bb-pre{background:#6C3FE0;} .bb-launch{background:#EE6A4E;} .bb-post{background:#0BAB91;} .bb-cont{background:#8B8398;}
+.bb-legend{display:flex; flex-wrap:wrap; gap:14px; margin-top:12px; font-size:.84rem; color:var(--ink-soft);}
+.bb-legend span{display:inline-flex; align-items:center; gap:7px;}
+.bb-legend i{width:14px; height:14px; border-radius:4px;}
+.bb-legend b{color:var(--ink); font-family:"Space Grotesk",sans-serif;}
+
+/* INTERACTIVE shell */
+.activity{background:var(--card); border:2px solid var(--violet-tint); border-radius:var(--r); box-shadow:var(--shadow); padding:22px 22px 24px; margin-top:18px;}
+.activity .a-top{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:4px;}
+.activity .a-title{font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:1.12rem; display:flex; align-items:center; gap:10px;}
+.a-icon{width:30px; height:30px; border-radius:9px; background:var(--violet); color:#fff; display:grid; place-items:center; font-size:.95rem;}
+.a-instr{color:var(--ink-soft); font-size:.92rem; margin:.2rem 0 14px;}
+.score-pill{font-family:"Space Grotesk",sans-serif; font-weight:600; font-size:.85rem; background:var(--violet-tint); color:var(--violet-deep); padding:6px 13px; border-radius:999px; white-space:nowrap;}
+.btn{font-family:"Space Grotesk",sans-serif; font-weight:600; font-size:.85rem; border:none; cursor:pointer; padding:9px 16px; border-radius:11px; background:var(--violet); color:#fff; transition:filter .15s ease, transform .1s ease;}
+.btn:hover{filter:brightness(1.06);} .btn:active{transform:scale(.97);}
+.btn.ghost{background:var(--violet-tint); color:var(--violet-deep);}
+.toolbar{display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; align-items:center;}
+.done-msg{font-size:.9rem; font-weight:600; color:var(--teal); font-family:"Space Grotesk",sans-serif;}
+
+.match-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+.match-col h4{font-family:"Space Grotesk",sans-serif; font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 9px;}
+.opt{display:block; width:100%; text-align:left; border:1.5px solid var(--line); background:var(--surface); color:var(--ink); border-radius:12px; padding:11px 13px; margin-bottom:9px; cursor:pointer; font-size:.88rem; font-family:inherit; line-height:1.4; transition:all .14s ease;}
+.opt:hover:not(:disabled){border-color:var(--violet); background:#fff;}
+.opt:focus-visible{outline:3px solid #C9B8FF; outline-offset:2px;}
+.opt.sel{border-color:var(--violet); background:var(--violet-tint); box-shadow:0 0 0 3px rgba(108,63,224,.12);}
+.opt.matched{border-color:var(--teal); background:var(--teal-tint); color:#066b59; cursor:default;}
+.opt.matched::after{content:" ✓"; color:var(--teal); font-weight:700;}
+.opt.wrong{border-color:var(--red); background:var(--coral-tint); animation:shake .35s;}
+.opt:disabled{cursor:default;}
+.opt .pin{display:inline-block; font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:.72rem; color:#fff; background:var(--violet); border-radius:6px; padding:1px 7px; margin-right:7px; vertical-align:1px;}
+.opt.matched .pin{background:var(--teal);}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+.legend{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:14px; font-size:.8rem;}
+.legend span{display:inline-flex; align-items:center; gap:6px; color:var(--ink-soft);}
+.legend i{width:14px; height:14px; border-radius:4px; display:inline-block;}
+.sort-item{display:flex; flex-wrap:wrap; align-items:center; gap:8px; border:1.5px solid var(--line); border-radius:12px; padding:11px 13px; margin-bottom:10px; background:var(--surface); font-size:.9rem;}
+.sort-item .txt{flex:1 1 220px; min-width:150px;}
+.cat-btns{display:flex; gap:6px; flex-wrap:wrap;}
+.cat-btn{font-family:"Space Grotesk",sans-serif; font-weight:600; font-size:.78rem; border:1.5px solid var(--line); background:#fff; color:var(--ink-soft); padding:7px 12px; border-radius:9px; cursor:pointer; transition:all .13s ease;}
+.cat-btn:hover:not(:disabled){border-color:var(--violet); color:var(--violet);}
+.cat-btn:focus-visible{outline:3px solid #C9B8FF; outline-offset:2px;}
+.cat-btn.good{background:var(--teal); border-color:var(--teal); color:#fff;}
+.cat-btn.bad{background:var(--coral-tint); border-color:var(--red); color:var(--red); animation:shake .35s;}
+.cat-btn:disabled{cursor:default;}
+.verdict{margin-left:auto; font-size:.8rem; font-weight:600; font-family:"Space Grotesk",sans-serif;}
+.verdict.ok{color:var(--teal);}
+
+.mcq{border-bottom:1px solid var(--line); padding:16px 0;}
+.mcq:last-child{border-bottom:none;}
+.mcq .q{font-weight:600; margin:0 0 11px; font-size:.97rem;}
+.mcq .q .qn{color:var(--violet); font-family:"Space Grotesk",sans-serif; margin-right:6px;}
+.choice{display:block; width:100%; text-align:left; border:1.5px solid var(--line); background:var(--surface); color:var(--ink); border-radius:11px; padding:10px 13px; margin-bottom:8px; cursor:pointer; font-size:.9rem; font-family:inherit; transition:all .13s ease;}
+.choice:hover:not(:disabled){border-color:var(--violet);}
+.choice:focus-visible{outline:3px solid #C9B8FF; outline-offset:2px;}
+.choice.correct{border-color:var(--teal); background:var(--teal-tint); color:#066b59; font-weight:600;}
+.choice.incorrect{border-color:var(--red); background:var(--coral-tint); color:var(--red);}
+.choice:disabled{cursor:default;}
+.explain{font-size:.86rem; color:var(--ink-soft); background:var(--violet-tint); border-radius:10px; padding:10px 13px; margin-top:4px; display:none;}
+.explain.show{display:block;}
+.explain b{color:var(--violet-deep);}
+
+.refs{font-size:.82rem; color:var(--ink-soft);}
+.refs h3{font-size:.95rem; color:var(--ink);}
+.refs ul{padding-left:18px; margin:8px 0 0;}
+.refs li{margin:5px 0;}
+.bring{background:linear-gradient(150deg,#2B1B57,#6C3FE0); color:#fff; border-radius:var(--r); padding:22px 24px; margin-top:30px;}
+.bring b{font-family:"Space Grotesk",sans-serif; font-size:1.1rem; display:block; margin-bottom:6px;}
+.bring p{margin:0; color:#EFE6F7; font-size:.95rem;}
+
+@media (max-width:680px){
+  .hero h1{font-size:1.8rem;}
+  .phases,.match-grid{grid-template-columns:1fr;}
+  .jrow{grid-template-columns:90px 70px 1fr;}
+  .wrap{padding:0 16px 70px;}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important; scroll-behavior:auto !important;}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="phone-glow"></div>
+  <div class="phone-glow two"></div>
+  <div class="inner">
+    <div class="eyebrow">MKTG1419 · Week 11 · Pre-class Tutorial Prep</div>
+    <h1>Campaign Timeline &amp; Budgeting</h1>
+    <p class="lead">A great campaign is sequenced and costed. Learn the three launch phases — trigger, engage, amplify — how long each runs, and how the budget is split (with a real VND example). Then match the key terms. Quizzes are self-marked.</p>
+    <div class="badges">
+      <span class="badge">⏱ ~20 min read</span>
+      <span class="badge">🧩 3 interactive activities</span>
+      <span class="badge">💰 7-pair matching quiz</span>
+    </div>
+    <div class="outcomes">
+      <b>By the end you should be able to</b>
+      <ul>
+        <li>Name the three campaign phases and what each one does</li>
+        <li>Explain why message timing affects conversion</li>
+        <li>Allocate budget sensibly across the phases</li>
+        <li>Build in a contingency buffer and think about ROI</li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- SECTION 0: WHY TIMING -->
+  <section>
+    <div class="sec-head"><div class="sec-num">0</div><h2>Why timing matters</h2></div>
+    <p class="sec-intro">Consumers rarely convert on first exposure. Research consistently shows that well-sequenced messages across phases maximise both reach and conversion efficiency — so campaigns are planned in three phases.</p>
+  </section>
+
+  <!-- SECTION 1: THE THREE PHASES -->
+  <section>
+    <div class="sec-head"><div class="sec-num">1</div><h2>The three campaign phases</h2></div>
+    <p class="sec-intro">Each phase has a job, a rough duration and a share of the budget.</p>
+    <div class="phases">
+      <div class="pcard pre">
+        <span class="pct">20–30%</span>
+        <div class="ph">Trigger</div>
+        <h3>Pre-launch</h3>
+        <div class="meta">2–8 weeks before</div>
+        <p>Build anticipation and spark curiosity &amp; conversation.</p>
+        <ul><li>Teaser videos &amp; landing page</li><li>Email waitlist / drip</li><li>Influencer seeding</li><li>Press kit &amp; giveaways</li></ul>
+      </div>
+      <div class="pcard launch">
+        <span class="pct">40–60%</span>
+        <div class="ph">Engage</div>
+        <h3>Launch</h3>
+        <div class="meta">1–2 weeks</div>
+        <p>Introduce the product to drive sales and engagement.</p>
+        <ul><li>Launch event / livestream</li><li>Paid media blitz</li><li>Limited-time promo</li><li>Distribution &amp; support live</li></ul>
+      </div>
+      <div class="pcard post">
+        <span class="pct">20–30%</span>
+        <div class="ph">Amplify</div>
+        <h3>Post-launch</h3>
+        <div class="meta">1–3 months, ongoing</div>
+        <p>Maintain traction, gather insights and refine.</p>
+        <ul><li>Performance monitoring</li><li>Retargeting &amp; nurture</li><li>UGC &amp; community</li><li>Loyalty &amp; referrals</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: TIMELINE TABLE -->
+  <section>
+    <div class="sec-head"><div class="sec-num">2</div><h2>A timeline in weeks</h2></div>
+    <p class="sec-intro">Mapping phases against a week-by-week schedule (week 0 = launch day).</p>
+    <div class="jtable">
+      <div class="jrow head"><div>Phase</div><div>Weeks</div><div>Example activities</div></div>
+      <div class="jrow"><div class="stage">Pre-launch</div><div class="wk">−8 to −2</div><div class="act">Teaser videos, landing page + waitlist, influencer seeding, embargoed press kit, "tag 3 friends" giveaway</div></div>
+      <div class="jrow"><div class="stage">Launch</div><div class="wk">0 to +2</div><div class="act">Paid social &amp; search live, livestream demo, 48-hour promo, e-commerce + partners ready, influencer content drops</div></div>
+      <div class="jrow"><div class="stage">Post-launch</div><div class="wk">+2 &amp; beyond</div><div class="act">Review metrics (CTR, reach, sales, sentiment), retarget non-converters, amplify UGC, loyalty / referral program</div></div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: BUDGET -->
+  <section>
+    <div class="sec-head"><div class="sec-num">3</div><h2>Budgeting &amp; ROI</h2></div>
+    <p class="sec-intro">Budget follows the phases. Here's a real Vietnamese campaign example totalling about ₫1.17 billion.</p>
+    <div class="budget-bar">
+      <div class="bb-pre" style="width:26.5%">Pre 26.5%</div>
+      <div class="bb-launch" style="width:48.4%">Launch 48.4%</div>
+      <div class="bb-post" style="width:12%">Post 12%</div>
+      <div class="bb-cont" style="width:13.1%">Buffer 13%</div>
+    </div>
+    <div class="bb-legend">
+      <span><i style="background:#6C3FE0"></i><b>Pre-launch</b> · ₫309M</span>
+      <span><i style="background:#EE6A4E"></i><b>Launch</b> · ₫565M</span>
+      <span><i style="background:#0BAB91"></i><b>Post-launch</b> · ₫140M</span>
+      <span><i style="background:#8B8398"></i><b>Contingency</b> · ₫152M</span>
+    </div>
+    <div class="note" style="margin-top:18px;">
+      <span class="lbl">Rules of thumb</span>
+      Pre-launch ≈ <b>20–30%</b>, launch ≈ <b>40–60%</b> (the biggest slice), post-launch ≈ <b>20–30%</b>. Always add a <b>contingency of 15–20%</b> for the unexpected. Finally, judge success with <b>ROI</b> — a "hard" business metric of profit relative to cost (Gopinath, 2025).
+    </div>
+  </section>
+
+  <!-- ACTIVITY A: 7-PAIR MATCH -->
+  <section>
+    <div class="activity">
+      <div class="a-top">
+        <div class="a-title"><span class="a-icon">🧩</span> Activity A · Match the term</div>
+        <div class="score-pill" id="scoreA">0 / 7 matched</div>
+      </div>
+      <p class="a-instr">Tap a timeline-or-budget term on the left, then tap its description on the right. Correct pairs lock in green.</p>
+      <div class="match-grid">
+        <div class="match-col"><h4>Term</h4><div id="A-terms"></div></div>
+        <div class="match-col"><h4>Description</h4><div id="A-defs"></div></div>
+      </div>
+      <div class="toolbar"><button class="btn ghost" onclick="MM.reset('A')">↺ Reset</button><span class="done-msg" id="doneA"></span></div>
+    </div>
+  </section>
+
+  <!-- ACTIVITY B: PHASE SORT -->
+  <section>
+    <div class="activity">
+      <div class="a-top">
+        <div class="a-title"><span class="a-icon">🗂️</span> Activity B · Which phase?</div>
+        <div class="score-pill" id="scoreP">0 / 9 sorted</div>
+      </div>
+      <p class="a-instr">Place each campaign activity in the right phase. Pre = build hype · Launch = drive sales · Post = sustain &amp; refine.</p>
+      <div class="legend">
+        <span><i style="background:#7B4EE6"></i>Pre-launch</span>
+        <span><i style="background:#EE6A4E"></i>Launch</span>
+        <span><i style="background:#0BAB91"></i>Post-launch</span>
+      </div>
+      <div id="P-items"></div>
+      <div class="toolbar"><button class="btn ghost" onclick="MM.resetSort('P')">↺ Reset</button><span class="done-msg" id="doneP"></span></div>
+    </div>
+  </section>
+
+  <!-- ACTIVITY C: MCQ -->
+  <section>
+    <div class="activity">
+      <div class="a-top">
+        <div class="a-title"><span class="a-icon">✅</span> Activity C · Quick checks</div>
+        <div class="score-pill" id="scoreC">0 / 4 answered</div>
+      </div>
+      <p class="a-instr">Pick the best answer for instant feedback.</p>
+      <div id="C-mcq"></div>
+    </div>
+  </section>
+
+  <!-- BRING TO CLASS -->
+  <div class="bring">
+    <b>Bring to class 💬</b>
+    <p>Sketch a one-page timeline for a small campaign for a Vietnamese brand: list two activities per phase and split a ₫100M budget across pre / launch / post (plus a contingency). In the tutorial you'll build this out in Miro. Bring your draft numbers.</p>
+  </div>
+
+  <!-- REFERENCES -->
+  <section class="refs">
+    <h3>Key references</h3>
+    <ul>
+      <li>Loukas (2025) — pre-launch campaign tactics.</li>
+      <li>Taylor (n.d.) — launch and post-launch phases.</li>
+      <li>Gopinath (2025) — phase budgeting benchmarks.</li>
+    </ul>
+    <p style="margin-top:12px;">Read beyond these bullets — review the full reference list in your Week 11 tutorial notes.</p>
+  </section>
+
+</div>
+
+<script>
+const MM = (function(){
+  function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+  const matchSets = {
+    A: [
+      {t:"Pre-launch (Trigger)", d:"The phase that builds anticipation and curiosity before the big day"},
+      {t:"Launch (Engage)", d:"The phase that introduces the product to drive sales and engagement"},
+      {t:"Post-launch (Amplify)", d:"The phase that sustains traction, gathers insights and refines"},
+      {t:"Pre-launch budget", d:"Around 20\u201330% of the total campaign budget"},
+      {t:"Launch budget", d:"The biggest slice \u2014 roughly 40\u201360% of the budget"},
+      {t:"Contingency", d:"A 15\u201320% buffer set aside for the unexpected"},
+      {t:"ROI", d:"A \u201Chard\u201D business metric of profit relative to cost"}
+    ]
+  };
+  const state={A:{sel:null,matched:0}};
+  function buildMatch(key){
+    const set=matchSets[key];
+    const tw=document.getElementById(key+"-terms"), dw=document.getElementById(key+"-defs");
+    tw.innerHTML=""; dw.innerHTML=""; state[key]={sel:null,matched:0};
+    set.forEach((p,i)=>{ const b=document.createElement("button"); b.className="opt"; b.type="button"; b.dataset.id=i;
+      b.innerHTML='<span class="pin">'+(i+1)+'</span>'+p.t; b.onclick=()=>selTerm(key,b,i); tw.appendChild(b); });
+    shuffle(set.map((p,i)=>i)).forEach(i=>{ const b=document.createElement("button"); b.className="opt"; b.type="button"; b.dataset.id=i;
+      b.textContent=set[i].d; b.onclick=()=>selDef(key,b,i); dw.appendChild(b); });
+    updateMatch(key);
+  }
+  function selTerm(key,btn,i){ if(btn.classList.contains("matched"))return;
+    document.querySelectorAll('#'+key+'-terms .opt').forEach(o=>o.classList.remove('sel'));
+    if(state[key].sel===i){state[key].sel=null;return;} state[key].sel=i; btn.classList.add('sel'); }
+  function selDef(key,btn,i){ if(btn.classList.contains("matched"))return;
+    const sel=state[key].sel; if(sel===null){flash(btn);return;}
+    const tb=document.querySelector('#'+key+'-terms .opt[data-id="'+sel+'"]');
+    if(sel===i){ tb.classList.remove('sel'); tb.classList.add('matched'); tb.disabled=true; btn.classList.add('matched'); btn.disabled=true;
+      state[key].sel=null; state[key].matched++; updateMatch(key); }
+    else{ btn.classList.add('wrong'); tb.classList.add('wrong'); setTimeout(()=>{btn.classList.remove('wrong');tb.classList.remove('wrong','sel');},380); state[key].sel=null; } }
+  function flash(b){b.classList.add('wrong');setTimeout(()=>b.classList.remove('wrong'),380);}
+  function updateMatch(key){ const total=matchSets[key].length;
+    document.getElementById('score'+key).textContent=state[key].matched+' / '+total+' matched';
+    document.getElementById('done'+key).textContent = state[key].matched===total ? '🎉 All matched!' : ''; }
+
+  const sorts = {
+    P: { cats:["Pre","Launch","Post"], scoreId:"scoreP", doneId:"doneP", wrapId:"P-items",
+      items: shuffle([
+        {txt:"Short teaser video with only a partial reveal", a:"Pre"},
+        {txt:"\u201CJoin the waitlist\u201D landing page + email drip", a:"Pre"},
+        {txt:"Embargoed press kit sent to journalists", a:"Pre"},
+        {txt:"Livestream product demo with real-time buzz", a:"Launch"},
+        {txt:"48-hour limited-time launch promo", a:"Launch"},
+        {txt:"Paid social &amp; search campaign goes live", a:"Launch"},
+        {txt:"Retargeting ads for people who didn't convert", a:"Post"},
+        {txt:"Reposting and boosting top customer UGC", a:"Post"},
+        {txt:"Loyalty / referral program to extend reach", a:"Post"}
+      ]) }
+  };
+  function buildSort(key){
+    const s=sorts[key]; const wrap=document.getElementById(s.wrapId); wrap.innerHTML=""; s.done=0;
+    s.items.forEach(it=>{
+      const row=document.createElement("div"); row.className="sort-item";
+      const txt=document.createElement("div"); txt.className="txt"; txt.innerHTML=it.txt;
+      const btns=document.createElement("div"); btns.className="cat-btns";
+      s.cats.forEach(c=>{ const cb=document.createElement("button"); cb.className="cat-btn"; cb.type="button"; cb.textContent=c;
+        cb.onclick=()=>answerSort(key,row,cb,it,c); btns.appendChild(cb); });
+      const v=document.createElement("span"); v.className="verdict";
+      row.appendChild(txt); row.appendChild(btns); row.appendChild(v); wrap.appendChild(row);
+    });
+    sortScore(key);
+  }
+  function answerSort(key,row,cb,it,c){ const s=sorts[key]; if(row.classList.contains("done"))return;
+    if(c===it.a){ cb.classList.add("good"); row.classList.add("done"); row.querySelectorAll(".cat-btn").forEach(b=>b.disabled=true);
+      const v=row.querySelector(".verdict"); v.textContent="✓ Correct"; v.classList.add("ok"); s.done=(s.done||0)+1; sortScore(key); }
+    else{ cb.classList.add("bad"); setTimeout(()=>cb.classList.remove("bad"),380); } }
+  function sortScore(key){ const s=sorts[key]; const n=s.items.length;
+    document.getElementById(s.scoreId).textContent=(s.done||0)+' / '+n+' sorted';
+    document.getElementById(s.doneId).textContent=(s.done===n)?'🎉 All sorted correctly!':''; }
+  function resetSort(key){ sorts[key].items=shuffle(sorts[key].items); buildSort(key); }
+
+  const mcq=[
+    {q:"Why are campaigns split into phases rather than one big blast?",
+     opts:["It's cheaper to do nothing","Consumers rarely convert on first exposure, so sequenced messages work better","Phones can only show one ad","Launch day is illegal"], correct:1,
+     exp:"<b>Consumers rarely convert on first exposure.</b> Well-sequenced messaging across phases maximises reach and conversion efficiency."},
+    {q:"Which phase normally takes the biggest share of the budget?",
+     opts:["Pre-launch","Launch","Post-launch","They are always equal"], correct:1,
+     exp:"<b>Launch</b> — roughly 40\u201360%. Pre- and post-launch each take around 20\u201330%."},
+    {q:"What is a contingency in a campaign budget?",
+     opts:["A bonus for the team","A 15\u201320% buffer for the unexpected","The launch event cost","Money spent on vanity metrics"], correct:1,
+     exp:"<b>A 15\u201320% buffer</b> set aside for costs you can't fully predict."},
+    {q:"\u201CRetargeting ads for non-converters\u201D belongs to which phase?",
+     opts:["Pre-launch","Launch","Post-launch","None of them"], correct:2,
+     exp:"<b>Post-launch.</b> Retargeting and nurture happen after launch to recover people who didn't convert."}
+  ];
+  let mcqDone=0; const answered=new Set();
+  function buildMCQ(){
+    const wrap=document.getElementById("C-mcq"); wrap.innerHTML=""; mcqDone=0; answered.clear();
+    mcq.forEach((m,qi)=>{
+      const box=document.createElement("div"); box.className="mcq";
+      const q=document.createElement("p"); q.className="q"; q.innerHTML='<span class="qn">Q'+(qi+1)+'.</span>'+m.q; box.appendChild(q);
+      m.opts.forEach((opt,oi)=>{ const c=document.createElement("button"); c.className="choice"; c.type="button"; c.innerHTML=opt;
+        c.onclick=()=>answerMCQ(box,c,m,oi,qi); box.appendChild(c); });
+      const ex=document.createElement("div"); ex.className="explain"; ex.innerHTML=m.exp; box.appendChild(ex);
+      wrap.appendChild(box);
+    });
+    document.getElementById("scoreC").textContent="0 / "+mcq.length+" answered";
+  }
+  function answerMCQ(box,btn,m,oi,qi){
+    if(oi===m.correct){ btn.classList.add("correct"); box.querySelectorAll(".choice").forEach(c=>c.disabled=true);
+      box.querySelector(".explain").classList.add("show");
+      if(!answered.has(qi)){answered.add(qi); mcqDone++; document.getElementById("scoreC").textContent=mcqDone+" / "+mcq.length+" answered";} }
+    else{ btn.classList.add("incorrect"); btn.disabled=true; } }
+
+  document.addEventListener("DOMContentLoaded",()=>{ buildMatch("A"); buildSort("P"); buildMCQ(); });
+  return {reset:buildMatch, resetSort};
+})();
+</script>
+</body>
+</html>
